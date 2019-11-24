@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import {
   withGoogleMap,
   withScriptjs,
@@ -7,7 +8,7 @@ import {
   Marker
 } from "react-google-maps";
 import { Store } from "../../store";
-import busImage from "../../assets/images/toyota.jpeg"
+import busImage from "../../assets/images/bus.jpg"
 import {
   calculateDistanceBetweenTwoPoints,
   addDistanceBetweenEveryPointInPath,
@@ -48,6 +49,7 @@ function GoogleMaps(props) {
     if (state.tripStatus === "IN_PROGRESS") {
       dispatch({ type: "END_TRIP" });
     }
+    return <Redirect from="/" to="/status/" />;
   };
 
   const updateStation = stationId => {

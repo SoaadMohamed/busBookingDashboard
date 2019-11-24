@@ -1,10 +1,11 @@
-import React, { Ftagment, Component, useState } from 'react';
-import { Container, Segment, Header, Divider, Grid, GridColumn, Button, Modal, Icon, Dropdown } from 'semantic-ui-react'
+import React, { useState } from 'react';
+import { Container, Segment, Header, Divider, Grid, GridColumn, Button, Modal, Icon, Dropdown, Image } from 'semantic-ui-react'
 import Gmap from "./map"
 import RidePassenger from "../../components/RidePassenger"
 import users from "../../lib/users"
 import _ from 'lodash'
 import { Store } from "../../store";
+import logo from '../../logo.png';
 import moment from 'moment';
 
 function TripInfo(props) {
@@ -51,6 +52,11 @@ function TripInfo(props) {
         <Grid>
           <Grid.Row>
             <Grid.Column textAlign='left' mobile={16} tablet={16} computer={16}>
+              <Image src={logo} size='small' verticalAlign='top' />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column textAlign='left' mobile={16} tablet={16} computer={16}>
               {<Gmap />}
             </Grid.Column>
           </Grid.Row>
@@ -61,13 +67,13 @@ function TripInfo(props) {
                 placeholder='Change arrival Time'
                 options={timings}
                 onChange={(e) => settripArrival(e.target.value)}
-                disabled={state.tripStatus == "IN_PROGRESS"}
+                disabled={state.tripStatus === "IN_PROGRESS"}
               />
               <Divider fitted hidden />
-              {state.tripStatus && state.tripStatus == "FINISHED" ?
+              {state.tripStatus && state.tripStatus === "FINISHED" ?
                 <Button fluid color="blue" onClick={() => dispatch({ type: "RESET_TRIP" })}>Reset Trip</Button>
                 :
-                <Button fluid color={state.tripStatus == "IN_PROGRESS" ? "green" : "blue"} onClick={() => handleSubmit()} disabled={state.tripStatus == "IN_PROGRESS"}>{state.tripStatus == "IN_PROGRESS" ? <span>Trip is in progress</span> : <span>Start Trip</span>}</Button>
+                <Button fluid color={state.tripStatus === "IN_PROGRESS" ? "green" : "blue"} onClick={() => handleSubmit()} disabled={state.tripStatus === "IN_PROGRESS"}>{state.tripStatus === "IN_PROGRESS" ? <span>Trip is in progress</span> : <span>Start Trip</span>}</Button>
               }
             </GridColumn>
           </Grid.Row>
@@ -76,7 +82,7 @@ function TripInfo(props) {
             <GridColumn textAlign='left' mobile={16} tablet={16} computer={16}>
               <Header textAlign='left' as='h1'>
                 Trip Information
-            <Header.Subheader> {moment().format('MMMM Do YYYY, h:mm a')}</Header.Subheader>
+            <Header.Subheader> {moment().format('M/ D/ Y, h:mm a')}</Header.Subheader>
               </Header>
             </GridColumn>
           </Grid.Row>
@@ -84,27 +90,31 @@ function TripInfo(props) {
             <GridColumn textAlign='left' mobile={16} tablet={16} computer={4}>
               <Segment>
                 <Grid.Row>
-                  <span>  Driver name: {state.captinName}</span>
-                  <span>  rate: {state.rating}</span>
+                  <i aria-hidden="true" className="hand point right outline icon"></i>
+                  <span> {state.captinName}</span>
+                  <i aria-hidden="true" className="star outline icon"></i><span> {state.rating} </span>
                 </Grid.Row>
 
                 <Grid.Row>
-                  <span>  car model: {state.model}</span>
-                  <span>  plate: {state.plate}</span>
+                  <i aria-hidden="true" className="bus icon"></i>
+                  <span> {state.model}</span>
+                  <span> - </span>
+                  <span> {state.plate}</span>
                 </Grid.Row>
 
               </Segment>
             </GridColumn>
             <GridColumn textAlign='left' mobile={16} tablet={16} computer={4}>
               <Segment>
-                <Header.Subheader>  Start point: {state.startPoint}</Header.Subheader>
-                <Header.Subheader>  End point: {state.endPoint}</Header.Subheader>
+                <Header.Subheader>  {state.startPoint}</Header.Subheader>
+                <i aria-hidden="true" className="hand point down outline icon"></i>
+                <Header.Subheader>  {state.endPoint}</Header.Subheader>
               </Segment>
             </GridColumn>
             <GridColumn textAlign='left' mobile={16} tablet={16} computer={4}>
               <Segment>
-                <Header.Subheader>  dist: {state.fullDistance / 1000} Km</Header.Subheader>
-                <Header.Subheader>  fare: {state.baseFare} EGP</Header.Subheader>
+                <Header.Subheader><i aria-hidden="true" className="map pin icon"></i> {Math.round(state.fullDistance / 1000)} Km</Header.Subheader>
+                <Header.Subheader><i aria-hidden="true" className="dollar sign icon"></i> {state.baseFare} EGP</Header.Subheader>
               </Segment>
             </GridColumn>
           </Grid.Row>
@@ -132,7 +142,7 @@ function TripInfo(props) {
               <Button fluid
                 color="blue"
                 onClick={() => setModalVisible(true)}
-                disabled={state.tripStatus == "IN_PROGRESS"}
+                disabled={state.tripStatus === "IN_PROGRESS"}
               >Add new booking</Button>
             </GridColumn>
           </Grid.Row>

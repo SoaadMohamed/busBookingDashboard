@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
 import './App.scss';
 import { StoreProvider } from "./store";
@@ -11,10 +11,10 @@ function App() {
   return (
     <StoreProvider>
       <Router>
-        <div className="App" className="main-app">
+        <div className="main-app">
           <Switch>
             <Route exact path='/' component={TripInfo} />
-            <Route exact path='/status' component={TripStatus} />
+            <Route path='/status/' component={TripStatus} />
           </Switch>
         </div>
       </Router>

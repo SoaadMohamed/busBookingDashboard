@@ -9,7 +9,7 @@ const tripInformation = {
   startPoint: "Tagamoa",
   endPoint: "Almaza",
   captinName: "kamel",
-  rating: "5",
+  rating: 5.0,
   model: "Toyota",
   plate: "cc2019",
   bookingAllowed: true,
