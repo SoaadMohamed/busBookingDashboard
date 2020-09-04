@@ -5,7 +5,7 @@
   "dependencies": {
     "chart.js": "^2.9.3",
     "lodash": "^4.17.15",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "react": "^16.11.0",
     "react-chartjs-2": "^2.8.0",
     "react-compose": "^2.0.0",
