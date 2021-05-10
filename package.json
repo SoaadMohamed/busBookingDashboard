@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.9.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-chartjs-2": "^2.8.0",
